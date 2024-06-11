@@ -1,14 +1,18 @@
 "use client";
-import { Autocomplete, AutocompleteItem } from "@nextui-org/react";
-import React from "react";
+import { Autocomplete, AutocompleteItem } from "@nextui-org/autocomplete";
+import React, { useState } from "react";
 
 interface Props {
   label: string;
   name: string;
   data: AkunHeaderType[];
   value?: string;
+  onChange?: (value: string) => void;
 }
 function CustomAutoComplete(props: Props) {
+  const setValue = (value: string): void => {
+    console.log(value);
+  };
   const data = props.data;
   return (
     <>
@@ -17,8 +21,13 @@ function CustomAutoComplete(props: Props) {
         label={props.label}
         placeholder="Select a user"
         labelPlacement="inside"
+        onInputChange={props.onChange}
+        variant="bordered"
+        className="bg-foreground-50 rounded-xl"
         name={props.name}
+        size="sm"
         defaultInputValue={props.value}
+        isRequired
       >
         {(item) => (
           <AutocompleteItem

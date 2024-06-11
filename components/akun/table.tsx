@@ -1,16 +1,44 @@
-import React from "react";
-import { Table, TableBody, TableHeader } from "@nextui-org/react";
+"use client";
+import React, { MouseEvent, useState } from "react";
 import { BsPencilSquare } from "react-icons/bs";
-import { Console } from "console";
-import { FaTrashAlt } from "react-icons/fa";
 import Link from "next/link";
+import DeleteButtonAkun from "./deletebutton";
+import ConfirmAction from "./confirmAction";
+import { useDisclosure } from "@nextui-org/react";
+import { deleteAkunDetail } from "@/app/lib/akun/action";
+
 interface Props {
   data?: AkunType[];
 }
 const TableAkun = (props: Props) => {
-  console.log(props.data);
+  const { isOpen, onOpen, onOpenChange } = useDisclosure();
+  const [idToDelete, setIdToDelete] = useState(0);
+  const handleClikConfirmYa = async () => {
+    if (idToDelete !== 0) {
+      const deleteData = await deleteAkunDetail(idToDelete);
+      if (deleteData.status === "ok") {
+        alert(deleteData.message);
+      } else {
+        alert(deleteData.message);
+      }
+      onOpenChange();
+    }
+  };
+  const handleClickDelete = (id: number) => {
+    setIdToDelete(id);
+    onOpen();
+  };
   return (
     <>
+      <ConfirmAction
+        isOpen={isOpen}
+        title="Perhatian"
+        message="Apakah anda yakin ingin menghapus akun ini ?"
+        onOpen={onOpen}
+        onOpenChange={onOpenChange}
+        onClickYa={() => handleClikConfirmYa()}
+      />
+
       <table className="mt-5 table-auto bg-primary-50 rounded-lg mb-2">
         <thead className="bg-primary-100 rounded-sm">
           <tr className="">
@@ -35,7 +63,10 @@ const TableAkun = (props: Props) => {
                   <Link href={`/admin/akun/${item.kode_akun}/edit`}>
                     <BsPencilSquare className="h-6 w-6 p-1 bg-foreground-100  rounded-sm  text-foreground-900  cursor-pointer hover:text-primary-600 hover:bg-primary-300" />
                   </Link>
-                  <FaTrashAlt className="h-6 w-6 p-1 bg-white dark:text-black rounded-sm cursor-pointer hover:text-primary-600 hover:bg-danger-300" />
+                  <DeleteButtonAkun
+                    id={item.id}
+                    onClick={() => handleClickDelete(item.id)}
+                  />
                 </div>
               </td>
             </tr>

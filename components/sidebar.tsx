@@ -36,7 +36,7 @@ export default function Sidebar({ children }: { children: React.ReactNode }) {
             </span>
             <h4 className={`${expand ? `` : `hidden `} `}>FindHydroPro</h4>
           </div>
-          <ul className="space-y-4 px-2 py-2 flex-col">
+          <ul className="space-y-1 px-2 py-2 flex-col">
             <SidebarContext.Provider value={expand}>
               {children}
             </SidebarContext.Provider>
@@ -75,7 +75,7 @@ export function SidebarItems(props: SidebarItemProps) {
             <DynamicIcon iconFamily={"fa"} icon={props.icon} />
           </div>
           <span
-            className={`overflow-hidden transition-width ${expand ? `w-52` : `w-0 `} `}
+            className={`overflow-hidden transition-width ${expand ? `w-44` : `w-0 `} `}
           >
             {props.label}
           </span>

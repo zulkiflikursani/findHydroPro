@@ -10,7 +10,7 @@ export async function GET(
   const prisma = new PrismaClient();
   try {
     const data = await prisma.$queryRawUnsafe(
-      `select  akunheaders.kode_akun_header, akunheaders.nama_akun_header,akundetail.kode_akun,akundetail.nama_akun from akundetail left join akunheaders on akundetail.kode_akun_header = akunheaders.kode_akun_header where akundetail.company = ? and akundetail.kode_akun = ?`,
+      `select akundetail.id,akunheaders.kode_akun_header, akunheaders.nama_akun_header,akundetail.kode_akun,akundetail.nama_akun from akundetail left join akunheaders on akundetail.kode_akun_header = akunheaders.kode_akun_header where akundetail.company = ? and akundetail.kode_akun = ?`,
       company,
       kode_akun
     );

@@ -11,6 +11,7 @@ const page = async ({
 }) => {
   const query = searchParams?.query || "";
   const currentPage = searchParams?.page || 1;
+  console.log("cuurentPage", currentPage);
   return (
     <div className="flex flex-col rounded-lg  justify-center p-2 gap-2">
       <Akun query={query} currentPage={currentPage} />

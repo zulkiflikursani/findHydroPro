@@ -1,6 +1,5 @@
 import { options } from "@/app/api/auth/[...nextauth]/options";
 import { PrismaClient } from "@prisma/client";
-import { error } from "console";
 import { getServerSession } from "next-auth";
 import { unstable_noStore } from "next/cache";
 
@@ -40,6 +39,7 @@ export async function fetchAkunDetail(kodeAkun: string): Promise<{
   data?: AkunDetailType;
   error?: string;
 }> {
+  unstable_noStore;
   const session = await getServerSession(options);
   const company = session?.user.company;
   try {
@@ -47,7 +47,6 @@ export async function fetchAkunDetail(kodeAkun: string): Promise<{
       `${process.env.NEXT_PUBLIC_API_URL}/akun/akundetail/${company}/${kodeAkun}`
     );
     const res = await getakundetail.json();
-    // console.log(res.data);
     return {
       statusCode: 200,
       data: res.data[0],
@@ -61,6 +60,7 @@ export async function fetchAkunHeader(): Promise<{
   statusCode: number;
   data: AkunHeaderType[];
 }> {
+  unstable_noStore;
   const prisma = new PrismaClient();
   const getakunheader = await prisma.akunheaders.findMany({
     select: {

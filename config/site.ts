@@ -18,8 +18,8 @@ export const siteConfig = {
     },
     {
       icon: "FaShoppingBasket",
-      label: "Penjualan",
-      href: "/admin/penjualan",
+      label: "Produk",
+      href: "/admin/produk",
     },
     {
       icon: "FaShoppingBasket",
